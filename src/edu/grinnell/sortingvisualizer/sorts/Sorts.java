@@ -1,16 +1,21 @@
 package edu.grinnell.sortingvisualizer.sorts;
 
+import static org.junit.Assert.assertArrayEquals;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import edu.grinnell.sortingvisualizer.sortevents.*;
 
 public class Sorts {
+    //takes in two index and swap the values at these indices.
     public static <T extends Comparable<T>> void swap(T[] arr, int i, int j) {
         T temp = arr[i];
         arr[i] = arr[j];
         arr[j] = temp;
     }
+    //takes a list arr, apply selectionSort to arr to sort 
+    //the array in ascending order and return a List of SortEvents. 
     public static <T extends Comparable<T>> List<SortEvent<T>> selectionSort(T[] arr) {
         List<SortEvent<T>> ls = new ArrayList<SortEvent<T>>();
         for (int i = 0; i < arr.length - 1; i++) {
@@ -27,7 +32,8 @@ public class Sorts {
         }
         return ls;
     }
-
+    //takes a list arr, apply insertionSort to arr to sort 
+    //the array in ascending order and return a List of SortEvents. 
     public static <T extends Comparable<T>> List<SortEvent<T>> insertionSort(T[] arr) {
         List<SortEvent<T>> ls = new ArrayList<SortEvent<T>>();
         for (int i = 1; i < arr.length; i++) {
@@ -42,10 +48,13 @@ public class Sorts {
         return ls;
     }
 
+    //takes in an array
     public static <T extends Comparable<T>> List<SortEvent<T>>  mergeSort(T[] arr) {
         return mergeSort(arr, 0, arr.length);
     }
-    
+    //takes a list arr, initial index low, finish index high, 
+    //and apply mergeSort to arr to sort the array in 
+    //ascending order and return a List of SortEvents. 
     public static <T extends Comparable<T>> List<SortEvent<T>> mergeSort(T[] arr, int low, int high) {
         List<SortEvent<T>> ls = new ArrayList<SortEvent<T>>();
         if(high - low > 1){
@@ -90,11 +99,13 @@ public class Sorts {
         return ls;
     }
 
-    //low = 0; high = arr.length 
+    //takes in an array
     public static <T extends Comparable<T>> List<SortEvent<T>>  quickSort(T[] arr) {
         return quickSort(arr, 0, arr.length);
     }
-    
+    //takes a list arr, initial index low, finish index high, 
+    //and apply quickSort to arr to sort the array in 
+    //ascending order and return a List of SortEvents. 
     public static <T extends Comparable<T>> List<SortEvent<T>>  quickSort(T[] arr, int low, int high) {
         List<SortEvent<T>> ls = new ArrayList<SortEvent<T>>();
         if(high - low > 1){
@@ -106,25 +117,22 @@ public class Sorts {
             int fin2 = high - 2;
             while(fin1 != fin2){
                 while(fin1 != fin2 && arr[fin1].compareTo(val) < 0){
-                    ls.add(new CompareEvent(fin1,mid));
+                    ls.add(new CompareEvent(fin1,high- 1));
                     fin1++;
                 }
-                ls.add(new CompareEvent(fin1, mid));
+                ls.add(new CompareEvent(fin1, high - 1));
                 while(fin1 != fin2 && arr[fin2].compareTo(val) > 0){
-                    ls.add(new CompareEvent(fin2, mid));
+                    ls.add(new CompareEvent(fin2, high - 1));
                     fin2--;
                 }
-                ls.add(new CompareEvent(fin2, mid));
-                //if(arr[fin1].compareTo(val)> 0 && arr[fin2].compareTo(val) < 0){
-                  //  ls.add(new CompareEvent(fin1, mid));
-                   // ls.add(new CompareEvent(fin2, mid));
+                ls.add(new CompareEvent(fin2, high - 1));
+                
+                if(fin1 < fin2){
                     ls.add(new SwapEvent(fin1, fin2));
                     swap(arr, fin1, fin2);
-                //}
-                //ls.add(new CompareEvent(fin1, mid));
-                //ls.add(new CompareEvent(fin2, mid));
+                }
             }
-           
+
             if(arr[fin1].compareTo(val)< 0){
                 ls.add(new CompareEvent(fin1, mid));
                 ls.add(new SwapEvent(fin1 + 1, high -1));
@@ -135,12 +143,25 @@ public class Sorts {
                 swap(arr, fin1, high - 1);
             }
            
-            Sorts.quickSort(arr, low, fin1);
-            Sorts.quickSort(arr, fin1+1, high);
+            List<SortEvent<T>> ls1 = Sorts.quickSort(arr, low, fin1+1);
+            for(int i = 0; i < ls1.size(); i++){
+                ls.add(ls1.get(i));
+            }
+            List<SortEvent<T>> ls2 = Sorts.quickSort(arr, fin1+1, high);
+            for(int i = 0; i < ls2.size(); i++){
+                ls.add(ls2.get(i));
+            }
+            
         }
         return ls;
     }
-    //out customSort is Bubble Sort.
+    
+   
+        
+    
+    //our customSort is Bubble Sort.
+    //takes in a array and apply customSort to arr to sort the array in 
+    //ascending order and return a List of SortEvents. 
     public static <T extends Comparable<T>> List<SortEvent<T>>  customSort(T[] arr) {
         List<SortEvent<T>> ls = new ArrayList<SortEvent<T>>();
         for (int i = 0; i < arr.length -1; i++){
@@ -156,23 +177,18 @@ public class Sorts {
         }
         return ls;
     }
+    
     public static <T extends Comparable<T>> void pr(T[] arr){
         for(int i = 0; i < arr.length; i++){
             System.out.print(arr[i]);
         }
     }
-    
+    //eventSort takes in an array and a list of sortEvents
+    //applies every sortEvents in the list to the array
     public static <T extends Comparable<T>> void eventSort(T[] arr, List<SortEvent<T>> events){
         for(int i = 0; i < events.size(); i++){
             events.get(i).apply(arr);
         }
-    }
-    
-    public static void main(String[] args){
-        Integer[] b = {2, 6, 3, 8, 2, 1, 0, 9, 4, 7, 5};
-        Integer[] b1 = {2, 6, 3, 8, 2, 1, 0, 9, 4, 7, 5};
-        eventSort(b1, mergeSort(b));
-        pr(b1);
-    }
+    }        
 }
 

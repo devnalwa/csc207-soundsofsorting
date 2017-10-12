@@ -142,16 +142,13 @@ public class ControlPanel extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 if (isSorting) { return; }
                 isSorting = true;
-                // TODO: fill me in
                 // 1. Create the sorting events list
                 // 2. Add in the compare events to the end of the list
                 Integer[] y = new Integer[notes.getNotes().length];
                 for(int i = 0; i < notes.getNotes().length; i++) {
                     y[i] = notes.getNotes()[i];
                 }
-                final List<SortEvent<Integer>> events = generateEvents((String) sorts.getSelectedItem(), y);
-                
-                
+                final List<SortEvent<Integer>> events = generateEvents((String) sorts.getSelectedItem(), y);                
                 
                 // NOTE: The Timer class repetitively invokes a method at a
                 //       fixed interval.  Here we are specifying that method
@@ -168,14 +165,21 @@ public class ControlPanel extends JPanel {
                         if (index < events.size()) {
                             SortEvent<Integer> e = events.get(index++);
                             e.apply(notes.getNotes());
-                            for(int i = 0; i < e.getAffectedIndices().size(); i++){
+                            /*for(int i = 0; i < e.getAffectedIndices().size(); i++){
                                 panel.repaint();
                                 scale.playNote(e.getAffectedIndices().get(i), e.isEmphasized());
-                                notes.highlightNote(e.getAffectedIndices().get(i));
-                                
+                                notes.highlightNote(e.getAffectedIndices().get(i));   
+                            }*/
+                           if(e.getAffectedIndices().size() == 1){
+                                scale.playNote(e.getAffectedIndices().get(0), e.isEmphasized());
+                                notes.highlightNote(e.getAffectedIndices().get(0)); 
+                            }else {
+                                scale.playNote(e.getAffectedIndices().get(0), e.isEmphasized());
+                                scale.playNote(e.getAffectedIndices().get(1), e.isEmphasized());
+                                notes.highlightNote(e.getAffectedIndices().get(1)); 
+                                notes.highlightNote(e.getAffectedIndices().get(0)); 
                             }
                            
-                            // TODO: fill me in
                             // 1. Apply the next sort event.
                             // 3. Play the corresponding notes denoted by the
                             //    affected indices logged in the event.

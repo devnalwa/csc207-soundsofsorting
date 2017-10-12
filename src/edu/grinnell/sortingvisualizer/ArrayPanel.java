@@ -24,6 +24,7 @@ public class ArrayPanel extends JPanel {
     }
 
     @Override
+    //takes nothing, render the note indices to the screen
     public void paintComponent(Graphics g) {
         int height = this.getSize().height;
         int width = this.getSize().width;
@@ -40,9 +41,14 @@ public class ArrayPanel extends JPanel {
         int rwidth = width/ls.length;
         for(int i = 0; i < ls.length; i++){
             g.clearRect (i * rwidth, 0, rwidth, height);
-            g.setColor(new Color(0, (1 - ls[i] / high) * 255 , 255 * ls[i] / high));
+            if(notes.getHighlights()[i]){
+                g.setColor(new Color(255, 0, 0));
+            }else {
+                g.setColor(new Color(50, (1 - ls[i] / high) * 255 , 255 * ls[i] / high));
+            }
             g.fillRect(i * rwidth, height - height * ls[i] / high, rwidth, height * ls[i] / high);
         }
+        notes.clearAllHighlighted();
         
     }
 }

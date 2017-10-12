@@ -16,11 +16,12 @@ public class NoteIndices {
      */
     private Integer[] indices;
     private Boolean[] highlights;
-    
+    //constructor, takes an integer n and create an integer array of length
+    //n and boolean array of n
     public NoteIndices(int n) {
-        // TODO: fill me in
         this.indices = new Integer[n];
         this.highlights = new Boolean[n];
+        
     }
     
     /**
@@ -32,17 +33,16 @@ public class NoteIndices {
     public void initializeAndShuffle(int n) {
         NoteIndices temp = new NoteIndices(n);
         
-       List<Integer> ls = new ArrayList<>(n);
+        List<Integer> ls = new ArrayList<>(n);
         for(int i = 0; i<n; i++){
             ls.add(i, i);
         }
         Collections.shuffle(ls);
-        /*for(int i = 0; i< n; i++){
-            System.out.println(highlights[i]);
-        }*/
         for(int i = 0; i< n; i++){
-            System.out.println(i);
             temp.indices[i] = ls.get(i);
+        }
+        for(int i =0; i< n; i++){
+            temp.highlights[i] = false;
         }
         this.indices = temp.indices;
         this.highlights = temp.highlights;
@@ -53,6 +53,9 @@ public class NoteIndices {
         return indices;
     }
     
+    public Boolean[] getHighlights(){
+        return highlights;
+    }
     /**
      * Highlights the given index of the note array
      * @param index the index to highlight
