@@ -16,7 +16,7 @@ on the terminal:
 1. Go into folder "sounds-of-sorting-dev-nalwa-carol-yan-and-hung-le"
 
 
-2. "javac -d "classes" src/edu/grinnell/sortingvisualizer/*.java src/edu/grinnell/sortingvisualizer/sorts/Sorts.java src/edu/grinnell/sortingvisualizer/sortevents/*.java"
+2. "javac -d "classes" src/edu/grinnell/sortingvisualizer//*.java src/edu/grinnell/sortingvisualizer/sorts/Sorts.java src/edu/grinnell/sortingvisualizer/sortevents/*.java"
 
 
 3. java -classpath "classes" edu.grinnell.sortingvisualizer.SortingVisualizer
