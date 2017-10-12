@@ -10,13 +10,14 @@ Reference: In class reading and refered documentations.
 
 Compilation Instruction:
 
+Please open up this README.md file since the git doesn't display the (star) symbol correctly!
 
 on the terminal:
 
 1. Go into folder "sounds-of-sorting-dev-nalwa-carol-yan-and-hung-le"
 
 
-2. "javac -d "classes" src/edu/grinnell/sortingvisualizer//*.java src/edu/grinnell/sortingvisualizer/sorts/Sorts.java src/edu/grinnell/sortingvisualizer/sortevents/*.java"
+2. "javac -d "classes" src/edu/grinnell/sortingvisualizer/*.java src/edu/grinnell/sortingvisualizer/sorts/Sorts.java src/edu/grinnell/sortingvisualizer/sortevents/*.java"
 
 
 3. java -classpath "classes" edu.grinnell.sortingvisualizer.SortingVisualizer
