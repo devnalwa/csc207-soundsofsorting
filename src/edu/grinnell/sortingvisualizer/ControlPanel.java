@@ -2,6 +2,7 @@ package edu.grinnell.sortingvisualizer;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Timer;
@@ -11,6 +12,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
 
+import edu.grinnell.sortingvisualizer.sortevents.CompareEvent;
 import edu.grinnell.sortingvisualizer.sortevents.SortEvent;
 import edu.grinnell.sortingvisualizer.sorts.Sorts;
 
@@ -49,6 +51,7 @@ public class ControlPanel extends JPanel {
             return Sorts.selectionSort(arr);
         case "Insertion":
             return Sorts.insertionSort(arr);
+    /*bubble sort is customSort*/
         case "Bubble":
             return Sorts.customSort(arr);
         case "Merge":
@@ -93,13 +96,13 @@ public class ControlPanel extends JPanel {
      * @param notes the Notes object that this control panel manages
      * @param panel the ArrayPanel that this panel renders to
      */
-    public ControlPanel(NoteIndices notes, ArrayPanel panel) {
+    public ControlPanel(final NoteIndices notes, final ArrayPanel panel) {
         scale = new Scale(bMinorPentatonicValues);
         notes.initializeAndShuffle(scale.size());
         this.panel = panel;
         
         ///// The sort selection combo box /////
-        JComboBox<String> sorts = new JComboBox<>(new String[] {
+        final JComboBox<String> sorts = new JComboBox<>(new String[] {
            "Selection",
            "Insertion",
            "Bubble",
@@ -109,7 +112,7 @@ public class ControlPanel extends JPanel {
         add(sorts);
         
         ///// The scale selection combo box /////
-        JComboBox<String> scales = new JComboBox<>(new String[] {
+        final JComboBox<String> scales = new JComboBox<>(new String[] {
            "Pentatonic",
            "Chromatic"
         });
@@ -122,6 +125,9 @@ public class ControlPanel extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 if (!isSorting) {
                     scale = generateScale((String) scales.getSelectedItem());
+                    for(int i = 0; i < notes.getNotes().length; i++){
+                        System.out.println(notes.getNotes()[i]);
+                    }
                     notes.initializeAndShuffle(scale.size());
                     ControlPanel.this.panel.repaint();
                 }
@@ -136,11 +142,16 @@ public class ControlPanel extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 if (isSorting) { return; }
                 isSorting = true;
-                
                 // TODO: fill me in
                 // 1. Create the sorting events list
                 // 2. Add in the compare events to the end of the list
-                List<SortEvent<Integer>> events = new java.util.LinkedList<>();
+                Integer[] y = new Integer[notes.getNotes().length];
+                for(int i = 0; i < notes.getNotes().length; i++) {
+                    y[i] = notes.getNotes()[i];
+                }
+                final List<SortEvent<Integer>> events = generateEvents((String) sorts.getSelectedItem(), y);
+                
+                
                 
                 // NOTE: The Timer class repetitively invokes a method at a
                 //       fixed interval.  Here we are specifying that method
@@ -156,6 +167,14 @@ public class ControlPanel extends JPanel {
                     public void run() {
                         if (index < events.size()) {
                             SortEvent<Integer> e = events.get(index++);
+                            e.apply(notes.getNotes());
+                            for(int i = 0; i < e.getAffectedIndices().size(); i++){
+                                panel.repaint();
+                                scale.playNote(e.getAffectedIndices().get(i), e.isEmphasized());
+                                notes.highlightNote(e.getAffectedIndices().get(i));
+                                
+                            }
+                           
                             // TODO: fill me in
                             // 1. Apply the next sort event.
                             // 3. Play the corresponding notes denoted by the

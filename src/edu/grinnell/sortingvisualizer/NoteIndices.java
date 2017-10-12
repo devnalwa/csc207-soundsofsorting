@@ -1,5 +1,9 @@
 package edu.grinnell.sortingvisualizer;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 /**
  * A collection of indices into a Scale object.
  * These indices are the subject of the various sorting algorithms
@@ -10,8 +14,13 @@ public class NoteIndices {
     /**
      * @param n the size of the scale object that these indices map into
      */
+    private Integer[] indices;
+    private Boolean[] highlights;
+    
     public NoteIndices(int n) {
         // TODO: fill me in
+        this.indices = new Integer[n];
+        this.highlights = new Boolean[n];
     }
     
     /**
@@ -21,13 +30,27 @@ public class NoteIndices {
      * @param n the size of the scale object that these indices map into
      */
     public void initializeAndShuffle(int n) {
-        // TODO: fill me in
+        NoteIndices temp = new NoteIndices(n);
+        
+       List<Integer> ls = new ArrayList<>(n);
+        for(int i = 0; i<n; i++){
+            ls.add(i, i);
+        }
+        Collections.shuffle(ls);
+        /*for(int i = 0; i< n; i++){
+            System.out.println(highlights[i]);
+        }*/
+        for(int i = 0; i< n; i++){
+            System.out.println(i);
+            temp.indices[i] = ls.get(i);
+        }
+        this.indices = temp.indices;
+        this.highlights = temp.highlights;
     }
     
     /** @return the indices of this NoteIndices object */
     public Integer[] getNotes() { 
-        // TODO: fill me in
-        return null;
+        return indices;
     }
     
     /**
@@ -35,17 +58,17 @@ public class NoteIndices {
      * @param index the index to highlight
      */
     public void highlightNote(int index) {
-        // TODO: fill me in
+        highlights[index] = true;
     }
     
     /** @return true if the given index is highlighted */
-    public boolean isHighlighted(int index) {
-        // TODO: fill me in
-        return false;
-    }
+
+
     
     /** Clears all highlighted indices from this collection */
     public void clearAllHighlighted() {
-        // TODO: fill me in
+        for(int i = 0; i< highlights.length; i++ ){
+            highlights[i] = false;
+        }
     }
 }
