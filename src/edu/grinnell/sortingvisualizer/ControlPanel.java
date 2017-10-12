@@ -15,6 +15,7 @@ import javax.swing.JPanel;
 import edu.grinnell.sortingvisualizer.sortevents.CompareEvent;
 import edu.grinnell.sortingvisualizer.sortevents.SortEvent;
 import edu.grinnell.sortingvisualizer.sorts.Sorts;
+import edu.grinnell.sortingvisualizer.*;
 
 /**
  * The Control Panel houses the GUI for interacting with the Sounds of

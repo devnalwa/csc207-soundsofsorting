@@ -6,6 +6,7 @@ import java.util.List;
 import org.junit.Test;
 import edu.grinnell.sortingvisualizer.*;
 import edu.grinnell.sortingvisualizer.sortevents.SortEvent;
+import edu.grinnell.sortingvisualizer.*;
 public class SortsTest {
 
     @Test

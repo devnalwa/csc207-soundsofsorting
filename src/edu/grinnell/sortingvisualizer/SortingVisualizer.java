@@ -1,7 +1,7 @@
 package edu.grinnell.sortingvisualizer;
 
 import java.awt.BorderLayout;
-
+import edu.grinnell.sortingvisualizer.*;
 import javax.swing.JFrame;
 
 public class SortingVisualizer {

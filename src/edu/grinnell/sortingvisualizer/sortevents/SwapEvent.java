@@ -4,6 +4,7 @@ package edu.grinnell.sortingvisualizer.sortevents;
 import java.util.List;
 import java.util.ArrayList;
 import edu.grinnell.sortingvisualizer.sorts.Sorts;
+import edu.grinnell.sortingvisualizer.*;
 
 public class SwapEvent<T> implements SortEvent<T>{
     //field

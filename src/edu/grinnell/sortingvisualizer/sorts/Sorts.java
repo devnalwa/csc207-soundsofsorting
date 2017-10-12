@@ -1,7 +1,7 @@
 package edu.grinnell.sortingvisualizer.sorts;
 
-import static org.junit.Assert.assertArrayEquals;
-
+//import static org.junit.Assert.assertArrayEquals;
+import edu.grinnell.sortingvisualizer.*;
 import java.util.ArrayList;
 import java.util.List;
 

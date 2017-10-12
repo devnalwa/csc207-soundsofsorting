@@ -3,6 +3,7 @@ package edu.grinnell.sortingvisualizer;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import edu.grinnell.sortingvisualizer.*;
 
 /**
  * A collection of indices into a Scale object.

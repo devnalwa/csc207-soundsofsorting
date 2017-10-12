@@ -3,6 +3,7 @@ package edu.grinnell.sortingvisualizer;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Color;
+import edu.grinnell.sortingvisualizer.*;
 
 import javax.swing.JPanel;
 

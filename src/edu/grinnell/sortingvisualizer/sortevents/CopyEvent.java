@@ -2,6 +2,7 @@ package edu.grinnell.sortingvisualizer.sortevents;
 
 import java.util.ArrayList;
 import java.util.List;
+import edu.grinnell.sortingvisualizer.*;
 
 public class CopyEvent<T> implements SortEvent<T> {
     //field

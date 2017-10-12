@@ -1,5 +1,7 @@
 package edu.grinnell.sortingvisualizer.sorts;
 
+import edu.grinnell.sortingvisualizer.*;
+
 public class Dog implements Comparable<Dog> {
     //fields
     private int eyes;
