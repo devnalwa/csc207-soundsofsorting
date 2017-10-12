@@ -10,7 +10,7 @@ Reference: In class reading and refered documentations.
 
 Compilation Instruction:
 
-Please open up this README.md file since the git doesn't display the (star) symbol correctly!
+Please open up this README.md file using "edit this file" otherwise the git doesn't display the (star) symbol correctly!
 
 on the terminal:
 
@@ -18,7 +18,7 @@ on the terminal:
 
 
 2. "javac -d "classes" src/edu/grinnell/sortingvisualizer/*.java src/edu/grinnell/sortingvisualizer/sorts/Sorts.java src/edu/grinnell/sortingvisualizer/sortevents/*.java"
-(this needs to be copied when you opened up the README.md file since the star.java is not displayed if not opened.)
+(this needs to be copied when you opened up the README.md file using "edit this file" since the star.java is not displayed if not opened.)
 
 
 3. java -classpath "classes" edu.grinnell.sortingvisualizer.SortingVisualizer
